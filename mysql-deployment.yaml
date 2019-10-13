@@ -1,0 +1,46 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.18.0 ()
+  creationTimestamp: null
+  labels:
+    io.kompose.service: mysql
+  name: mysql
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: mysql
+    spec:
+      containers:
+      - args:
+        - --default-authentication-plugin=mysql_native_password
+        env:
+        - name: MYSQL_DATABASE
+          value: mobiusdb
+        - name: MYSQL_ROOT_PASSWORD
+        image: mysql
+        name: mysql
+        ports:
+        - containerPort: 3306
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: mysql-storage
+        - mountPath: /docker-entrypoint-initdb.d/mobiusdb.sql
+          name: mysql-claim1
+      restartPolicy: Always
+      volumes:
+      - name: mysql-storage
+        persistentVolumeClaim:
+          claimName: mysql-storage
+      - name: mysql-claim1
+        persistentVolumeClaim:
+          claimName: mysql-claim1
+status: {}
