@@ -11,7 +11,6 @@ spec:
     targetPort: 3306
   selector:
     app: etsi-iot-week
-  clusterIP: None  
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -63,13 +62,13 @@ spec:
         volumeMounts:
         - mountPath: /var/lib/mysql
           name: mysql-pv
-        - mountPath: /docker-entrypoint-initdb.d/mobiusdb.sql
-          name: mysql-claim1
+        - mountPath: /docker-entrypoint-initdb.d
+          name: mysql-initdb
       restartPolicy: Always
       volumes:
       - name: mysql-pv
         persistentVolumeClaim:
           claimName: mysql-pv-claim
-      - name: mysql-claim1
-        persistentVolumeClaim:
-          claimName: mysql-claim1
+      - name: mysql-initdb
+        configMap:
+          name: mysql-init-db

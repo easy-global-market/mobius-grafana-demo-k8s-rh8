@@ -1,0 +1,236 @@
+apiVersion: v1
+data:
+  mobiusdb.sql: "-- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)\n--\n-- Host:
+    localhost    Database: mobiusdb\n-- ------------------------------------------------------\n--
+    Server version\t8.0.13\n\n/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT
+    */;\n/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;\n/*!40101
+    SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;\nSET NAMES utf8 ;\n/*!40103
+    SET @OLD_TIME_ZONE=@@TIME_ZONE */;\n/*!40103 SET TIME_ZONE='+00:00' */;\n/*!40014
+    SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;\n/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS,
+    FOREIGN_KEY_CHECKS=0 */;\n/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO'
+    */;\n/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;\n\n--\n-- Table
+    structure for table `acp`\n--\n\nDROP TABLE IF EXISTS `acp`;\n/*!40101 SET @saved_cs_client
+    \    = @@character_set_client */;\nSET character_set_client = utf8mb4 ;\nCREATE
+    TABLE `acp` (\n    `ri` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,\n
+    \   `pv` longtext NOT NULL,\n    `pvs` longtext NOT NULL,\n    PRIMARY KEY (`ri`),\n
+    \   UNIQUE KEY `ri_UNIQUE` (`ri`),\n    CONSTRAINT `acp_ri` FOREIGN KEY (`ri`)
+    REFERENCES `lookup` (`ri`) ON DELETE CASCADE ON UPDATE CASCADE\n    ) ENGINE=InnoDB
+    DEFAULT CHARSET=utf8;\n/*!40101 SET character_set_client = @saved_cs_client */;\n\n--\n--
+    Table structure for table `ae`\n--\n\nDROP TABLE IF EXISTS `ae`;\n/*!40101 SET
+    @saved_cs_client     = @@character_set_client */;\nSET character_set_client =
+    utf8mb4 ;\nCREATE TABLE `ae` (\n    `ri` varchar(200) CHARACTER SET utf8 COLLATE
+    utf8_bin NOT NULL,\n    `apn` varchar(45) NOT NULL,\n    `api` varchar(45) NOT
+    NULL,\n    `aei` varchar(200) NOT NULL,\n    `poa` varchar(200) NOT NULL,\n    `or`
+    varchar(45) NOT NULL,\n    `rr` varchar(45) NOT NULL,\n    `nl` varchar(45) NOT
+    NULL,\n    `csz` varchar(45) DEFAULT NULL,\n    `srv` varchar(45) DEFAULT NULL,\n
+    \   PRIMARY KEY (`ri`),\n    UNIQUE KEY `path_UNIQUE` (`ri`),\n    UNIQUE KEY
+    `aei_UNIQUE` (`aei`),\n    CONSTRAINT `ae_ri` FOREIGN KEY (`ri`) REFERENCES `lookup`
+    (`ri`) ON DELETE CASCADE ON UPDATE CASCADE\n    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;\n/*!40101
+    SET character_set_client = @saved_cs_client */;\n\n--\n-- Table structure for
+    table `cb`\n--\n\nDROP TABLE IF EXISTS `cb`;\n/*!40101 SET @saved_cs_client     =
+    @@character_set_client */;\nSET character_set_client = utf8mb4 ;\nCREATE TABLE
+    `cb` (\n    `ri` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,\n
+    \   `cst` varchar(45) NOT NULL,\n    `csi` varchar(45) NOT NULL,\n    `srt` varchar(100)
+    NOT NULL,\n    `poa` varchar(200) NOT NULL,\n    `nl` varchar(45) NOT NULL,\n
+    \   `ncp` varchar(45) NOT NULL,\n    `srv` varchar(45) DEFAULT NULL,\n    PRIMARY
+    KEY (`ri`),\n    UNIQUE KEY `path_UNIQUE` (`ri`),\n    CONSTRAINT `cb_ri` FOREIGN
+    KEY (`ri`) REFERENCES `lookup` (`ri`) ON DELETE CASCADE ON UPDATE CASCADE\n    )
+    ENGINE=InnoDB DEFAULT CHARSET=utf8;\n/*!40101 SET character_set_client = @saved_cs_client
+    */;\n\n--\n-- Table structure for table `cin`\n--\n\nDROP TABLE IF EXISTS `cin`;\n/*!40101
+    SET @saved_cs_client     = @@character_set_client */;\nSET character_set_client
+    = utf8mb4 ;\nCREATE TABLE `cin` (\n    `pi` varchar(200) NOT NULL,\n    `ri` varchar(200)
+    CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,\n    `cs` int(11) NOT NULL,\n    `cr`
+    varchar(45) NOT NULL,\n    `cnf` varchar(45) NOT NULL,\n    `or` varchar(45) NOT
+    NULL,\n    `con` longtext NOT NULL,\n    PRIMARY KEY (`ri`,`pi`),\n    UNIQUE
+    KEY `ri_UNIQUE` (`ri`),\n    KEY `cin_ri_idx` (`pi`,`ri`,`cs`),\n    CONSTRAINT
+    `cin_ri` FOREIGN KEY (`ri`) REFERENCES `lookup` (`ri`) ON DELETE CASCADE ON UPDATE
+    CASCADE\n    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;\n/*!40101 SET character_set_client
+    = @saved_cs_client */;\n\n--\n-- Table structure for table `cnt`\n--\n\nDROP TABLE
+    IF EXISTS `cnt`;\n/*!40101 SET @saved_cs_client     = @@character_set_client */;\nSET
+    character_set_client = utf8mb4 ;\nCREATE TABLE `cnt` (\n    `ri` varchar(200)
+    CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,\n    `cr` varchar(45) NOT NULL,\n
+    \   `mni` int(10) unsigned NOT NULL,\n    `mbs` int(10) unsigned NOT NULL,\n    `mia`
+    int(10) unsigned NOT NULL,\n    `cni` int(10) unsigned NOT NULL,\n    `cbs` int(10)
+    unsigned NOT NULL,\n    `li` varchar(45) NOT NULL,\n    `or` varchar(45) NOT NULL,\n
+    \   `disr` varchar(45) DEFAULT NULL,\n    PRIMARY KEY (`ri`),\n    UNIQUE KEY
+    `resourceid_UNIQUE` (`ri`),\n    CONSTRAINT `cnt_ri` FOREIGN KEY (`ri`) REFERENCES
+    `lookup` (`ri`) ON DELETE CASCADE ON UPDATE CASCADE\n    ) ENGINE=InnoDB DEFAULT
+    CHARSET=utf8;\n/*!40101 SET character_set_client = @saved_cs_client */;\n\n--\n--
+    Table structure for table `csr`\n--\n\nDROP TABLE IF EXISTS `csr`;\n/*!40101 SET
+    @saved_cs_client     = @@character_set_client */;\nSET character_set_client =
+    utf8mb4 ;\nCREATE TABLE `csr` (\n    `ri` varchar(200) CHARACTER SET utf8 COLLATE
+    utf8_bin NOT NULL,\n    `cst` varchar(45) NOT NULL,\n    `poa` varchar(200) NOT
+    NULL,\n    `cb` varchar(200) NOT NULL,\n    `csi` varchar(200) NOT NULL,\n    `mei`
+    varchar(45) NOT NULL,\n    `tri` varchar(45) NOT NULL,\n    `rr` varchar(45) NOT
+    NULL,\n    `nl` varchar(45) NOT NULL,\n    `srv` varchar(45) DEFAULT NULL,\n    PRIMARY
+    KEY (`ri`),\n    UNIQUE KEY `ri_UNIQUE` (`ri`),\n    KEY `csr_ri_idx` (`ri`),\n
+    \   CONSTRAINT `csr_ri` FOREIGN KEY (`ri`) REFERENCES `lookup` (`ri`) ON DELETE
+    CASCADE ON UPDATE CASCADE\n    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;\n/*!40101
+    SET character_set_client = @saved_cs_client */;\n\n--\n-- Table structure for
+    table `grp`\n--\n\nDROP TABLE IF EXISTS `grp`;\n/*!40101 SET @saved_cs_client
+    \    = @@character_set_client */;\nSET character_set_client = utf8mb4 ;\nCREATE
+    TABLE `grp` (\n    `ri` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,\n
+    \   `cr` varchar(45) NOT NULL,\n    `mt` varchar(45) NOT NULL,\n    `cnm` varchar(45)
+    NOT NULL,\n    `mnm` varchar(45) NOT NULL,\n    `mid` mediumtext NOT NULL,\n    `macp`
+    mediumtext NOT NULL,\n    `mtv` varchar(45) NOT NULL,\n    `csy` varchar(45) NOT
+    NULL,\n    `gn` varchar(45) NOT NULL,\n    PRIMARY KEY (`ri`),\n    UNIQUE KEY
+    `ri_UNIQUE` (`ri`),\n    CONSTRAINT `grp_ri` FOREIGN KEY (`ri`) REFERENCES `lookup`
+    (`ri`) ON DELETE CASCADE ON UPDATE CASCADE\n    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;\n/*!40101
+    SET character_set_client = @saved_cs_client */;\n\n--\n-- Table structure for
+    table `lcp`\n--\n\nDROP TABLE IF EXISTS `lcp`;\n/*!40101 SET @saved_cs_client
+    \    = @@character_set_client */;\nSET character_set_client = utf8mb4 ;\nCREATE
+    TABLE `lcp` (\n    `ri` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,\n
+    \   `los` varchar(45) NOT NULL,\n    `lou` varchar(45) NOT NULL,\n    `lot` varchar(45)
+    NOT NULL,\n    `lor` varchar(45) NOT NULL,\n    `loi` varchar(45) NOT NULL,\n
+    \   `lon` varchar(45) NOT NULL,\n    `lost` varchar(45) NOT NULL,\n    `cr` varchar(45)
+    NOT NULL,\n    PRIMARY KEY (`ri`),\n    UNIQUE KEY `ri_UNIQUE` (`ri`),\n    CONSTRAINT
+    `lcp_ri` FOREIGN KEY (`ri`) REFERENCES `lookup` (`ri`) ON DELETE CASCADE ON UPDATE
+    CASCADE\n    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;\n/*!40101 SET character_set_client
+    = @saved_cs_client */;\n\n--\n-- Table structure for table `lookup`\n--\n\nDROP
+    TABLE IF EXISTS `lookup`;\n/*!40101 SET @saved_cs_client     = @@character_set_client
+    */;\nSET character_set_client = utf8mb4 ;\nCREATE TABLE `lookup` (\n    `pi` varchar(200)
+    NOT NULL,\n    `ri` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,\n
+    \   `ty` int(11) unsigned NOT NULL,\n    `ct` varchar(15) NOT NULL,\n    `st`
+    int(11) unsigned NOT NULL,\n    `rn` varchar(45) NOT NULL,\n    `lt` varchar(45)
+    NOT NULL,\n    `et` varchar(45) NOT NULL,\n    `acpi` varchar(200) NOT NULL,\n
+    \   `lbl` varchar(200) NOT NULL,\n    `at` varchar(45) NOT NULL,\n    `aa` varchar(45)
+    NOT NULL,\n    `sri` varchar(45) NOT NULL,\n    `spi` varchar(45) NOT NULL,\n
+    \   `subl` mediumtext,\n    PRIMARY KEY (`pi`,`ri`,`ty`),\n    UNIQUE KEY `ri_UNIQUE`
+    (`ri`),\n    KEY `idx_lookup_ty` (`ty`) USING BTREE,\n    KEY `idx_lookup_pi`
+    (`pi`,`st`,`ct`) USING BTREE\n    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;\n/*!40101
+    SET character_set_client = @saved_cs_client */;\n\n--\n-- Table structure for
+    table `mgo`\n--\n\nDROP TABLE IF EXISTS `mgo`;\n/*!40101 SET @saved_cs_client
+    \    = @@character_set_client */;\nSET character_set_client = utf8mb4 ;\nCREATE
+    TABLE `mgo` (\n    `ri` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,\n
+    \   `mgd` varchar(45) DEFAULT NULL,\n    `objs` varchar(45) DEFAULT NULL,\n    `obps`
+    varchar(45) DEFAULT NULL,\n    `dc` varchar(45) DEFAULT NULL,\n    `vr` varchar(45)
+    DEFAULT NULL,\n    `fwnnam` varchar(45) DEFAULT NULL,\n    `url` varchar(45) DEFAULT
+    NULL,\n    `ud` varchar(45) DEFAULT NULL,\n    `uds` varchar(45) DEFAULT NULL,\n
+    \   `btl` varchar(45) DEFAULT NULL,\n    `bts` varchar(45) DEFAULT NULL,\n    `dbl`
+    varchar(45) DEFAULT NULL,\n    `man` varchar(45) DEFAULT NULL,\n    `mod` varchar(45)
+    DEFAULT NULL,\n    `dty` varchar(45) DEFAULT NULL,\n    `fwv` varchar(45) DEFAULT
+    NULL,\n    `swv` varchar(45) DEFAULT NULL,\n    `hwv` varchar(45) DEFAULT NULL,\n
+    \   `can` varchar(45) DEFAULT NULL,\n    `att` varchar(45) DEFAULT NULL,\n    `cas`
+    varchar(45) DEFAULT NULL,\n    `cus` varchar(45) DEFAULT NULL,\n    `ena` varchar(45)
+    DEFAULT NULL,\n    `dis` varchar(45) DEFAULT NULL,\n    `rbo` varchar(45) DEFAULT
+    NULL,\n    `far` varchar(45) DEFAULT NULL,\n    `cr` varchar(45) DEFAULT NULL,\n
+    \   PRIMARY KEY (`ri`),\n    UNIQUE KEY `ri_UNIQUE` (`ri`),\n    CONSTRAINT `mgo_ri`
+    FOREIGN KEY (`ri`) REFERENCES `lookup` (`ri`) ON DELETE CASCADE ON UPDATE CASCADE\n
+    \   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;\n/*!40101 SET character_set_client =
+    @saved_cs_client */;\n\n--\n-- Table structure for table `mms`\n--\n\nDROP TABLE
+    IF EXISTS `mms`;\n/*!40101 SET @saved_cs_client     = @@character_set_client */;\nSET
+    character_set_client = utf8mb4 ;\nCREATE TABLE `mms` (\n    `ri` varchar(200)
+    CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,\n    `sid` varchar(45) DEFAULT NULL,\n
+    \   `soid` varchar(45) DEFAULT NULL,\n    `stid` varchar(45) DEFAULT NULL,\n    `asd`
+    varchar(45) DEFAULT NULL,\n    `osd` varchar(45) DEFAULT NULL,\n    `sst` varchar(45)
+    DEFAULT NULL,\n    `cr` varchar(45) DEFAULT NULL,\n    PRIMARY KEY (`ri`),\n    UNIQUE
+    KEY `ri_UNIQUE` (`ri`),\n    CONSTRAINT `mms_ri` FOREIGN KEY (`ri`) REFERENCES
+    `lookup` (`ri`) ON DELETE CASCADE ON UPDATE CASCADE\n    ) ENGINE=InnoDB DEFAULT
+    CHARSET=utf8;\n/*!40101 SET character_set_client = @saved_cs_client */;\n\n--\n--
+    Table structure for table `nod`\n--\n\nDROP TABLE IF EXISTS `nod`;\n/*!40101 SET
+    @saved_cs_client     = @@character_set_client */;\nSET character_set_client =
+    utf8mb4 ;\nCREATE TABLE `nod` (\n    `ri` varchar(200) CHARACTER SET utf8 COLLATE
+    utf8_bin NOT NULL,\n    `ni` varchar(45) NOT NULL,\n    `hcl` varchar(45) DEFAULT
+    NULL,\n    `mgca` varchar(45) DEFAULT NULL,\n    `cr` varchar(45) DEFAULT NULL,\n
+    \   PRIMARY KEY (`ri`),\n    UNIQUE KEY `ri_UNIQUE` (`ri`),\n    CONSTRAINT `nod_ri`
+    FOREIGN KEY (`ri`) REFERENCES `lookup` (`ri`) ON DELETE CASCADE ON UPDATE CASCADE\n
+    \   ) ENGINE=InnoDB DEFAULT CHARSET=utf8;\n/*!40101 SET character_set_client =
+    @saved_cs_client */;\n\n--\n-- Table structure for table `req`\n--\n\nDROP TABLE
+    IF EXISTS `req`;\n/*!40101 SET @saved_cs_client     = @@character_set_client */;\nSET
+    character_set_client = utf8mb4 ;\nCREATE TABLE `req` (\n    `ri` varchar(200)
+    CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,\n    `op` varchar(45) NOT NULL,\n
+    \   `tg` varchar(45) NOT NULL,\n    `org` varchar(45) NOT NULL,\n    `rid` varchar(45)
+    NOT NULL,\n    `mi` varchar(45) DEFAULT NULL,\n    `pc` longtext,\n    `rs` varchar(45)
+    DEFAULT NULL,\n    `ors` varchar(45) DEFAULT NULL,\n    `cr` varchar(45) DEFAULT
+    NULL,\n    PRIMARY KEY (`ri`),\n    UNIQUE KEY `ri_UNIQUE` (`ri`),\n    CONSTRAINT
+    `req_ri` FOREIGN KEY (`ri`) REFERENCES `lookup` (`ri`) ON DELETE CASCADE ON UPDATE
+    CASCADE\n    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;\n/*!40101 SET character_set_client
+    = @saved_cs_client */;\n\n--\n-- Table structure for table `smd`\n--\n\nDROP TABLE
+    IF EXISTS `smd`;\n/*!40101 SET @saved_cs_client     = @@character_set_client */;\nSET
+    character_set_client = utf8mb4 ;\nCREATE TABLE `smd` (\n    `ri` varchar(200)
+    CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,\n    `cr` varchar(45) DEFAULT NULL,\n
+    \   `dsp` longtext,\n    `or` mediumtext,\n    `soe` varchar(200) DEFAULT NULL,\n
+    \   `rels` varchar(400) DEFAULT NULL,\n    `dcrp` longtext,\n    PRIMARY KEY (`ri`),\n
+    \   UNIQUE KEY `ri_UNIQUE` (`ri`),\n    CONSTRAINT `sd_ri` FOREIGN KEY (`ri`)
+    REFERENCES `lookup` (`ri`) ON DELETE CASCADE ON UPDATE CASCADE\n    ) ENGINE=InnoDB
+    DEFAULT CHARSET=utf8;\n/*!40101 SET character_set_client = @saved_cs_client */;\n\n--\n--
+    Table structure for table `sri`\n--\n\nDROP TABLE IF EXISTS `sri`;\n/*!40101 SET
+    @saved_cs_client     = @@character_set_client */;\nSET character_set_client =
+    utf8mb4 ;\nCREATE TABLE `sri` (\n    `ri` varchar(200) CHARACTER SET utf8 COLLATE
+    utf8_bin NOT NULL,\n    `sri` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin
+    NOT NULL,\n    PRIMARY KEY (`ri`,`sri`),\n    UNIQUE KEY `ri_UNIQUE` (`ri`),\n
+    \   KEY `idx_sri_sri` (`sri`),\n    CONSTRAINT `sri_ri` FOREIGN KEY (`ri`) REFERENCES
+    `lookup` (`ri`) ON DELETE CASCADE ON UPDATE CASCADE\n    ) ENGINE=InnoDB DEFAULT
+    CHARSET=utf8;\n/*!40101 SET character_set_client = @saved_cs_client */;\n\n--\n--
+    Table structure for table `sub`\n--\n\nDROP TABLE IF EXISTS `sub`;\n/*!40101 SET
+    @saved_cs_client     = @@character_set_client */;\nSET character_set_client =
+    utf8mb4 ;\nCREATE TABLE `sub` (\n    `ri` varchar(200) CHARACTER SET utf8 COLLATE
+    utf8_bin NOT NULL,\n    `pi` varchar(400) DEFAULT NULL,\n    `enc` varchar(45)
+    DEFAULT NULL,\n    `exc` varchar(45) DEFAULT NULL,\n    `nu` varchar(200) DEFAULT
+    NULL,\n    `gpi` varchar(45) DEFAULT NULL,\n    `nfu` varchar(45) DEFAULT NULL,\n
+    \   `bn` varchar(45) DEFAULT NULL,\n    `rl` varchar(45) DEFAULT NULL,\n    `psn`
+    varchar(45) DEFAULT NULL,\n    `pn` varchar(45) DEFAULT NULL,\n    `nsp` varchar(45)
+    DEFAULT NULL,\n    `ln` varchar(45) DEFAULT NULL,\n    `nct` varchar(45) DEFAULT
+    NULL,\n    `nec` varchar(45) DEFAULT NULL,\n    `cr` varchar(45) DEFAULT NULL,\n
+    \   `su` varchar(45) DEFAULT NULL,\n    PRIMARY KEY (`ri`),\n    UNIQUE KEY `resourceid_UNIQUE`
+    (`ri`),\n    CONSTRAINT `sub_ri` FOREIGN KEY (`ri`) REFERENCES `lookup` (`ri`)
+    ON DELETE CASCADE ON UPDATE CASCADE\n    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;\n/*!40101
+    SET character_set_client = @saved_cs_client */;\n\n--\n-- Table structure for
+    table `tm`\n--\n\nDROP TABLE IF EXISTS `tm`;\n/*!40101 SET @saved_cs_client     =
+    @@character_set_client */;\nSET character_set_client = utf8mb4 ;\nCREATE TABLE
+    `tm` (\n    `ri` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,\n
+    \   `tltm` varchar(45) DEFAULT NULL,\n    `text` varchar(45) DEFAULT NULL,\n    `tct`
+    varchar(45) DEFAULT NULL,\n    `tept` varchar(45) DEFAULT NULL,\n    `tmd` varchar(45)
+    DEFAULT NULL,\n    `tltp` varchar(45) DEFAULT NULL,\n    `tctl` varchar(45) DEFAULT
+    NULL,\n    `tst` varchar(45) DEFAULT NULL,\n    `tmr` varchar(45) DEFAULT NULL,\n
+    \   `tmh` varchar(45) DEFAULT NULL,\n    `rqps` mediumtext,\n    `rsps` mediumtext,\n
+    \   `cr` varchar(45) DEFAULT NULL,\n    PRIMARY KEY (`ri`),\n    UNIQUE KEY `ri_UNIQUE`
+    (`ri`),\n    CONSTRAINT `tm_ri` FOREIGN KEY (`ri`) REFERENCES `lookup` (`ri`)
+    ON DELETE CASCADE ON UPDATE CASCADE\n    ) ENGINE=InnoDB DEFAULT CHARSET=latin1;\n/*!40101
+    SET character_set_client = @saved_cs_client */;\n\n--\n-- Table structure for
+    table `tr`\n--\n\nDROP TABLE IF EXISTS `tr`;\n/*!40101 SET @saved_cs_client     =
+    @@character_set_client */;\nSET character_set_client = utf8mb4 ;\nCREATE TABLE
+    `tr` (\n    `ri` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,\n
+    \   `cr` varchar(45) DEFAULT NULL,\n    `tid` varchar(45) NOT NULL,\n    `tctl`
+    varchar(45) DEFAULT NULL,\n    `tst` varchar(45) DEFAULT NULL,\n    `tltm` varchar(45)
+    DEFAULT NULL,\n    `text` varchar(45) DEFAULT NULL,\n    `tct` varchar(45) DEFAULT
+    NULL,\n    `tltp` varchar(45) DEFAULT NULL,\n    `trqp` mediumtext NOT NULL,\n
+    \   `trsp` mediumtext,\n    PRIMARY KEY (`ri`),\n    UNIQUE KEY `ri_UNIQUE` (`ri`),\n
+    \   CONSTRAINT `tr_ri` FOREIGN KEY (`ri`) REFERENCES `lookup` (`ri`) ON DELETE
+    CASCADE ON UPDATE CASCADE\n    ) ENGINE=InnoDB DEFAULT CHARSET=latin1;\n/*!40101
+    SET character_set_client = @saved_cs_client */;\n\n--\n-- Table structure for
+    table `ts`\n--\n\nDROP TABLE IF EXISTS `ts`;\n/*!40101 SET @saved_cs_client     =
+    @@character_set_client */;\nSET character_set_client = utf8mb4 ;\nCREATE TABLE
+    `ts` (\n    `ri` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,\n
+    \   `cr` varchar(45) DEFAULT NULL,\n    `mni` varchar(45) DEFAULT NULL,\n    `mbs`
+    varchar(45) DEFAULT NULL,\n    `mia` varchar(45) DEFAULT NULL,\n    `cni` varchar(45)
+    DEFAULT NULL,\n    `cbs` varchar(45) DEFAULT NULL,\n    `or` varchar(45) DEFAULT
+    NULL,\n    `pei` varchar(45) DEFAULT NULL,\n    `mdd` varchar(45) DEFAULT NULL,\n
+    \   `mdn` varchar(45) DEFAULT NULL,\n    `mdl` longtext,\n    `mdc` varchar(45)
+    DEFAULT NULL,\n    `mdt` varchar(45) DEFAULT NULL,\n    PRIMARY KEY (`ri`),\n
+    \   UNIQUE KEY `ri_UNIQUE` (`ri`),\n    CONSTRAINT `ts_ri` FOREIGN KEY (`ri`)
+    REFERENCES `lookup` (`ri`) ON DELETE CASCADE ON UPDATE CASCADE\n    ) ENGINE=InnoDB
+    DEFAULT CHARSET=utf8;\n/*!40101 SET character_set_client = @saved_cs_client */;\n\n--\n--
+    Table structure for table `tsi`\n--\n\nDROP TABLE IF EXISTS `tsi`;\n/*!40101 SET
+    @saved_cs_client     = @@character_set_client */;\nSET character_set_client =
+    utf8mb4 ;\nCREATE TABLE `tsi` (\n    `pi` varchar(200) NOT NULL,\n    `ri` varchar(200)
+    CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,\n    `cs` int(11) DEFAULT NULL,\n
+    \   `dgt` varchar(45) DEFAULT NULL,\n    `con` varchar(45) DEFAULT NULL,\n    `sqn`
+    varchar(45) DEFAULT NULL,\n    `cr` varchar(45) DEFAULT NULL,\n    PRIMARY KEY
+    (`pi`,`ri`),\n    UNIQUE KEY `ri_UNIQUE` (`ri`),\n    CONSTRAINT `tsi_ri` FOREIGN
+    KEY (`ri`) REFERENCES `lookup` (`ri`) ON DELETE CASCADE ON UPDATE CASCADE\n    )
+    ENGINE=InnoDB DEFAULT CHARSET=utf8;\n/*!40101 SET character_set_client = @saved_cs_client
+    */;\n/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;\n\n/*!40101 SET SQL_MODE=@OLD_SQL_MODE
+    */;\n/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;\n/*!40014 SET
+    UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;\n/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT
+    */;\n/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;\n/*!40101
+    SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;\n/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES
+    */;\n\n-- Dump completed on 2018-12-23 18:49:36\n"
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2019-10-13T13:10:29Z"
+  name: mysql-init-db
+  namespace: default
+  resourceVersion: "11195"
+  selfLink: /api/v1/namespaces/default/configmaps/mysql-init-db
+  uid: b2e641a2-db89-4040-85f3-c371e136391b

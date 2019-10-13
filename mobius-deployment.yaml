@@ -11,7 +11,7 @@ spec:
     targetPort: 7579
   selector:
     app: etsi-iot-week
-  type: loadBalancer
+  type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: Deployment
