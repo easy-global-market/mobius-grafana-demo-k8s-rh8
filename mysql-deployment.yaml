@@ -1,46 +1,75 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
-  annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.18.0 ()
-  creationTimestamp: null
   labels:
-    io.kompose.service: mysql
+    app: etsi-iot-week
   name: mysql
 spec:
+  ports:
+  - name: "3306"
+    port: 3306
+    targetPort: 3306
+  selector:
+    app: etsi-iot-week
+  clusterIP: None  
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: etsi-iot-week
+  name: mysql-pv-claim
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: etsi-iot-week
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: etsi-iot-week
   replicas: 1
   strategy:
     type: Recreate
   template:
     metadata:
-      creationTimestamp: null
       labels:
-        io.kompose.service: mysql
+        app: etsi-iot-week
     spec:
       containers:
-      - args:
+      - image: mysql
+        name: mysql
+        args:
         - --default-authentication-plugin=mysql_native_password
         env:
         - name: MYSQL_DATABASE
           value: mobiusdb
         - name: MYSQL_ROOT_PASSWORD
-        image: mysql
-        name: mysql
+          valueFrom:
+            secretKeyRef:
+              name: mysql-pass
+              key: password
         ports:
         - containerPort: 3306
-        resources: {}
+          name: mysql
         volumeMounts:
         - mountPath: /var/lib/mysql
-          name: mysql-storage
+          name: mysql-pv
         - mountPath: /docker-entrypoint-initdb.d/mobiusdb.sql
           name: mysql-claim1
       restartPolicy: Always
       volumes:
-      - name: mysql-storage
+      - name: mysql-pv
         persistentVolumeClaim:
-          claimName: mysql-storage
+          claimName: mysql-pv-claim
       - name: mysql-claim1
         persistentVolumeClaim:
           claimName: mysql-claim1
-status: {}
