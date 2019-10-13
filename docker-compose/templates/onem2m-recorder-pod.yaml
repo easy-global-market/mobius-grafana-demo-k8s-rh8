@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: onem2m-recorder
+  name: onem2m-recorder
+spec:
+  containers:
+  - env:
+    - name: APPLICATION_DATASOURCE_PASSWORD
+    - name: APPLICATION_ONEM2M_ORIGIN
+    - name: SPRING_PROFILES_ACTIVE
+      value: int
+    image: easyglobalmarket/onem2m-recorder
+    name: onem2m-recorder
+    ports:
+    - containerPort: 8080
+    resources: {}
+    volumeMounts:
+    - mountPath: /app/logs
+      name: onem2m-recorder-claim0
+  restartPolicy: OnFailure
+  volumes:
+  - name: onem2m-recorder-claim0
+    persistentVolumeClaim:
+      claimName: onem2m-recorder-claim0
+status: {}
