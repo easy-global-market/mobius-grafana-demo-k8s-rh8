@@ -1,21 +1,24 @@
 # Setup the k8s cluster
 
-Apply (default and weak !) secret (see https://kubernetes.io/docs/concepts/configuration/secret/ to create one with a __real__ password)
+## Create a Secret file
+
+* Create a secret (for MySQL and Postgres)
 
 ```
-kubectl apply -f mysql-secret.yaml
+kubectl create secret generic postgres-pass --from-literal=password=<password>
+kubectl create secret generic mysql-pass --from-literal=password=<password>
 ```
 
-Create the ConfigMap with the MySQL init script
+* Apply the ConfigMap for the MySQL and PostgreSQL init scripts
 
 ```
-kubectl apply -f mysql-configmap.yml
+kubectl apply -f mysql-configmap.yml -f postgres-configmap.yml
 ```
 
-Deploy MySQL and Mobius
+* Apply MySQL, PostgreSQL and Mobius deployment
 
 ```
-kubectl apply -f mysql-deployment.yaml -f mobius-deployment.yaml
+kubectl apply -f mysql-deployment.yaml -f mobius-deployment.yaml -f postgres-deployment.yaml
 ```
 
 # Commands used to create the config files

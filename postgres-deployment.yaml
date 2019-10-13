@@ -1,46 +1,74 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
-  annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.18.0 ()
-  creationTimestamp: null
   labels:
-    io.kompose.service: postgres
+    app: etsi-iot-week
   name: postgres
 spec:
+  ports:
+  - name: "5432"
+    port: 5432
+    targetPort: 5432
+  selector:
+    app: etsi-iot-week
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: etsi-iot-week
+  name: postgres-pv-claim
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: etsi-iot-week
+  name: postgres
+spec:
+  selector:
+    matchLabels:
+      app: etsi-iot-week
   replicas: 1
   strategy:
     type: Recreate
   template:
     metadata:
-      creationTimestamp: null
       labels:
-        io.kompose.service: postgres
+        app: etsi-iot-week
     spec:
       containers:
-      - env:
+      - image: timescale/timescaledb-postgis:latest-pg11
+        name: postgres
+        env:
         - name: POSTGRES_DB
           value: onem2m_recorder
         - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-pass
+              key: password
         - name: POSTGRES_USER
           value: onem2m
-        image: timescale/timescaledb-postgis:latest-pg11
-        name: postgres
         ports:
         - containerPort: 5432
-        resources: {}
+          name: postgres
         volumeMounts:
         - mountPath: /var/lib/postgresql/data
-          name: postgres-storage
-        - mountPath: /docker-entrypoint-initdb.d/V1__init.sql
-          name: postgres-claim1
+          name: postgres-pv
+        - mountPath: /docker-entrypoint-initdb.d
+          name: postgres-initdb
       restartPolicy: Always
       volumes:
-      - name: postgres-storage
+      - name: postgres-pv
         persistentVolumeClaim:
-          claimName: postgres-storage
-      - name: postgres-claim1
-        persistentVolumeClaim:
-          claimName: postgres-claim1
-status: {}
+          claimName: postgres-pv-claim
+      - name: postgres-initdb
+        configMap:
+          name: postgres-init-db

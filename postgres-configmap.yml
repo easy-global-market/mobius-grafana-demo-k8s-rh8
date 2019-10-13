@@ -1,0 +1,28 @@
+apiVersion: v1
+data:
+  onem2m_recorder.sql: |
+    CREATE TABLE subscription (
+      id            UUID              NOT NULL,
+      entity_name   TEXT              NOT NULL,
+      creation_date TIMESTAMPTZ       NOT NULL
+    );
+
+    CREATE TABLE measure (
+      time           TIMESTAMPTZ       NOT NULL,
+      container      TEXT              NOT NULL,
+      content_info   TEXT              NOT NULL,
+      unit           TEXT              NOT NULL,
+      content        DOUBLE PRECISION  NOT NULL
+    );
+
+    SELECT create_hypertable('measure', 'time');
+    -- see when / if it's needed
+    -- SELECT create_hypertable('measure', 'time', chunk_time_interval => interval '1 day');
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2019-10-13T16:23:07Z"
+  name: postgres-init-db
+  namespace: default
+  resourceVersion: "21847"
+  selfLink: /api/v1/namespaces/default/configmaps/postgres-init-db
+  uid: a9164822-11a5-4469-b6ea-e51b8baff9fb
