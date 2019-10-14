@@ -58,10 +58,16 @@ kubectl exec -it mosquitto -- /bin/sh
 kubectl get services
 ```
 
+* Get the state of a pod
+
+```
+kubectl describe pods <pod_name>
+```
+
 * View a pod logs
 
 ```
-kubectl logs mobius-6f699d8f8d-4h967
+kubectl logs <pod_name>
 ```
 
 * Get the URL of a service running into Minikube
