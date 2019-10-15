@@ -24,6 +24,8 @@ kubectl apply -f mysql-configmap.yml -f postgres-configmap.yml
 kubectl apply -f mysql-deployment.yaml -f mobius-deployment.yaml -f postgres-deployment.yaml -f onem2m-recorder-deployment.yaml grafana-deployment.yml
 ```
 
+* Manually init the onem2m_recorder DB in PostgreSQL
+
 ## Create the NGINX Ingress Controller
 
 * Run the following commands 
