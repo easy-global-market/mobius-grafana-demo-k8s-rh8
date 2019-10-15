@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: nginx
+  annotations:
+    # ingress.kubernetes.io/rewrite-target: /
+    nginx.org/rewrites: "serviceName=mobius rewrite=/Mobius;serviceName=grafana rewrite=/"
+spec:
+  rules:
+  - http:
+      paths:
+        - path: /Mobius
+          backend:
+            serviceName: mobius
+            servicePort: 7579
+        - path: /grafana
+          backend:
+            serviceName: grafana
+            servicePort: 3000

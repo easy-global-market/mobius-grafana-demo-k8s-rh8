@@ -10,6 +10,8 @@ kubectl create secret generic mysql-pass --from-literal=password=<password>
 kubectl create secret generic onem2m --from-literal=origin=<origin>
 ```
 
+## Apply the deployment files
+
 * Apply the ConfigMap for the MySQL and PostgreSQL init scripts
 
 ```
@@ -19,8 +21,34 @@ kubectl apply -f mysql-configmap.yml -f postgres-configmap.yml
 * Apply MySQL, PostgreSQL and Mobius deployment
 
 ```
-kubectl apply -f mysql-deployment.yaml -f mobius-deployment.yaml -f postgres-deployment.yaml -f onem2m-recorder-deployment.yaml
+kubectl apply -f mysql-deployment.yaml -f mobius-deployment.yaml -f postgres-deployment.yaml -f onem2m-recorder-deployment.yaml grafana-deployment.yml
 ```
+
+## Create the NGINX Ingress Controller
+
+* Run the following commands 
+
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/mandatory.yaml
+```
+
+```
+minikube addons enable ingress
+```
+
+```
+kubectl apply -f nginx-ingress.yaml
+```
+
+* Verify the installation
+
+```
+kubectl get pods -n ingress-nginx
+```
+
+## Kubernetes dashboard
+
+If you need the k8s dashboard, follow this documentation : https://docs.ovh.com/gb/en/kubernetes/installing-kubernetes-dashboard/
 
 # Commands used to create the config files
 

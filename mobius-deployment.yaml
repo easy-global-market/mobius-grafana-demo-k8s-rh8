@@ -10,7 +10,6 @@ spec:
     nodePort: 31579
   selector:
     app: etsi-iot-week
-  type: NodePort
 ---
 apiVersion: apps/v1
 kind: Deployment
