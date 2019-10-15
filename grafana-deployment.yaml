@@ -52,6 +52,8 @@ spec:
         - mountPath: /var/lib/grafana
           name: grafana-pv
       restartPolicy: Always
+      securityContext:
+        fsGroup: 472
       volumes:
       - name: grafana-pv
         persistentVolumeClaim:
