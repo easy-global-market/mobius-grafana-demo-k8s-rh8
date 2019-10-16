@@ -3,8 +3,7 @@ kind: Ingress
 metadata:
   name: nginx
   annotations:
-    # ingress.kubernetes.io/rewrite-target: /
-    nginx.org/rewrites: "serviceName=mobius rewrite=/Mobius;serviceName=grafana rewrite=/"
+    nginx.org/rewrites: "serviceName=mobius rewrite=/Mobius;serviceName=grafana rewrite=/grafana"
 spec:
   rules:
   - http:

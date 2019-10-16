@@ -10,20 +10,6 @@ spec:
     targetPort: 3000
   selector:
     app: etsi-iot-week
-  type: NodePort
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  labels:
-    app: etsi-iot-week
-  name: grafana-pv-claim
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 100Mi
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -46,6 +32,17 @@ spec:
       containers:
       - image: grafana/grafana
         name: grafana
+        env:
+        - name: GF_SERVER_ROOT_URL
+          value: http://localhost:3000/grafana/
+        - name: GF_SERVER_SERVE_FROM_SUB_PATH
+          value: "true"
+        - name: GF_AUTH_BASIC_ENABLED
+          value: "false"
+        - name: GF_AUTH_ANONYMOUS_ENABLED
+          value: "true"
+        - name: GF_AUTH_ANONYMOUS_ORG_ROLE
+          value: Admin        
         ports:
         - containerPort: 3000
         volumeMounts:
