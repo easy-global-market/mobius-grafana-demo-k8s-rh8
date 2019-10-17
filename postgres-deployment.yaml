@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: etsi-iot-week
+    app: etsi-iot-week-postgres
   name: postgres
 spec:
   ports:
@@ -10,13 +10,13 @@ spec:
     port: 5432
     targetPort: 5432
   selector:
-    app: etsi-iot-week
+    app: etsi-iot-week-postgres
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   labels:
-    app: etsi-iot-week
+    app: etsi-iot-week-postgres
   name: postgres-pv-claim
 spec:
   accessModes:
@@ -30,19 +30,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: etsi-iot-week
+    app: etsi-iot-week-postgres
   name: postgres
 spec:
   selector:
     matchLabels:
-      app: etsi-iot-week
+      app: etsi-iot-week-postgres
   replicas: 1
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: etsi-iot-week
+        app: etsi-iot-week-postgres
     spec:
       containers:
       - image: timescale/timescaledb-postgis:latest-pg11

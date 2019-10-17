@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: etsi-iot-week
+    app: etsi-iot-week-mysql
   name: mysql
 spec:
   ports:
@@ -10,13 +10,13 @@ spec:
     port: 3306
     targetPort: 3306
   selector:
-    app: etsi-iot-week
+    app: etsi-iot-week-mysql
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   labels:
-    app: etsi-iot-week
+    app: etsi-iot-week-mysql
   name: mysql-pv-claim
 spec:
   accessModes:
@@ -30,19 +30,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: etsi-iot-week
+    app: etsi-iot-week-mysql
   name: mysql
 spec:
   selector:
     matchLabels:
-      app: etsi-iot-week
+      app: etsi-iot-week-mysql
   replicas: 1
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: etsi-iot-week
+        app: etsi-iot-week-mysql
     spec:
       containers:
       - image: mysql

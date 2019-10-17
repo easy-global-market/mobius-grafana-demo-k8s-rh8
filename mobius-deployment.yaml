@@ -2,32 +2,32 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: etsi-iot-week
+    app: etsi-iot-week-mobius
   name: mobius
 spec:
   ports:
   - port: 7579
     targetPort: 7579
   selector:
-    app: etsi-iot-week
+    app: etsi-iot-week-mobius
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: etsi-iot-week
+    app: etsi-iot-week-mobius
   name: mobius
 spec:
   selector:
     matchLabels:
-      app: etsi-iot-week
+      app: etsi-iot-week-mobius
   replicas: 1
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: etsi-iot-week
+        app: etsi-iot-week-mobius
     spec:
       containers:
       - image: easyglobalmarket/mobius:latest
@@ -44,5 +44,4 @@ spec:
               key: password
         ports:
         - containerPort: 7579
-          name: mobius
       restartPolicy: Always
