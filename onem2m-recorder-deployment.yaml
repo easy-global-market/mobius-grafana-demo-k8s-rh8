@@ -44,6 +44,8 @@ spec:
             secretKeyRef:
               name: onem2m
               key: origin
+        - name: APPLICATION_BASE_URL
+          value: http://onem2m-recorder:8080
         - name: SPRING_PROFILES_ACTIVE
           value: int
         ports:
