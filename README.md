@@ -28,24 +28,18 @@ kubectl apply -f mysql-deployment.yaml -f mobius-deployment.yaml -f postgres-dep
 
 ## Create the NGINX Ingress Controller
 
-* Run the following commands 
+* Follow the OVH documentation
+
+* Check the external IP allocation
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/mandatory.yaml
+kubectl --namespace default get services -o wide -w looming-gnat-nginx-ingress-controller
 ```
 
-```
-minikube addons enable ingress
-```
+* Apply the NGINX configuration
 
 ```
 kubectl apply -f nginx-ingress.yaml
-```
-
-* Verify the installation
-
-```
-kubectl get pods -n ingress-nginx
 ```
 
 ## Kubernetes dashboard
